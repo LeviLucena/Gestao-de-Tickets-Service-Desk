@@ -13,7 +13,7 @@ Clone este repositório em sua máquina local:
 
     bash
 
-    git clone https://github.com/seu-usuario/seu-repositorio.git
+    git clone https://github.com/LeviLucena/Gestao-de-Tickets-Service-Desk.git
 
 ### Importe os dashboards no Grafana:
 1. Acesse o Grafana e faça login.
