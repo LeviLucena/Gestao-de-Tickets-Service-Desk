@@ -44,7 +44,7 @@ Após a conclusão da instalação e configuração, você poderá acessar os da
 Os dashboards incluídos neste projeto:
 
 - Tickets Abertos: Exibe o número total de tickets abertos nos últimos 21 horas.
-```   SELECT COUNT(distinct t.id) FROM ticket t WHERE t.create_time > now() - interval '21 hours' AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.ticket_state_id in (1,12,13,18,21,22,25); ```
+```SELECT COUNT(distinct t.id) FROM ticket t WHERE t.create_time > now() - interval '21 hours' AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.ticket_state_id in (1,12,13,18,21,22,25); ```
   
 - Tickets Fechados: Exibe o número total de tickets fechados nos últimos 21 horas.
     SELECT COUNT(distinct t.id) FROM ticket t, ticket_history th WHERE t.id = th.ticket_id AND t.create_time > now() - interval '21 hours' AND t.queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.ticket_state_id in (11,17,19,20,23,24);
