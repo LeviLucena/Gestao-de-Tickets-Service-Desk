@@ -102,3 +102,5 @@ Este projeto está licenciado sob a MIT License, Se você deseja contribuir para
 Licença
 
 Espero que isso te ajude a criar o README do seu projeto de Dashboards Service Desk no Grafana. Lembre-se de ajustar as instruções de acordo com o seu ambiente específico.
+
+## Autor: [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/levilucena/)](https://www.linkedin.com/in/levilucena/)
