@@ -49,35 +49,54 @@ SELECT COUNT(distinct t.id) FROM ticket t WHERE t.create_time > now() - interval
 ```
   
 - Tickets Fechados: Exibe o número total de tickets fechados nos últimos 21 horas.
-    SELECT COUNT(distinct t.id) FROM ticket t, ticket_history th WHERE t.id = th.ticket_id AND t.create_time > now() - interval '21 hours' AND t.queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.ticket_state_id in (11,17,19,20,23,24);
+```
+SELECT COUNT(distinct t.id) FROM ticket t, ticket_history th WHERE t.id = th.ticket_id AND t.create_time > now() - interval '21 hours' AND t.queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.ticket_state_id in (11,17,19,20,23,24);
+```
   
 - Tickets por Prioridade: Exibe a contagem de tickets abertos agrupados por prioridade.
-  SELECT NOW() AS Time, ticket_priority.name, COUNT(*) AS " " FROM ticket_priority INNER JOIN ticket ON ticket_priority.id = ticket.ticket_priority_id WHERE queue_id IN (12,14,15,16,17,18,19,44,45,50,55,56) AND ticket_state_id in (1,12,13,18,21,22,25) GROUP BY ticket_priority.name, 1 ORDER BY 3 DESC, 1;
-  
+```
+SELECT NOW() AS Time, ticket_priority.name, COUNT(*) AS " " FROM ticket_priority INNER JOIN ticket ON ticket_priority.id = ticket.ticket_priority_id WHERE queue_id IN (12,14,15,16,17,18,19,44,45,50,55,56) AND ticket_state_id in (1,12,13,18,21,22,25) GROUP BY ticket_priority.name, 1 ORDER BY 3 DESC, 1;
+```
+
 - Tickets Abertos por Tipo: Exibe a contagem de tickets abertos agrupados por tipo.
-  SELECT tt.name AS Tipo, COUNT(t.tn) AS Qtd FROM ticket t INNER JOIN ticket_type tt ON t.type_id = tt.id WHERE t.create_time > now() - interval '21 hours' GROUP BY tt.name ORDER BY Qtd DESC;
-  
+```
+SELECT tt.name AS Tipo, COUNT(t.tn) AS Qtd FROM ticket t INNER JOIN ticket_type tt ON t.type_id = tt.id WHERE t.create_time > now() - interval '21 hours' GROUP BY tt.name ORDER BY Qtd DESC;
+```
+ 
 - Tickets Abertos por Estado: Exibe a contagem de tickets abertos agrupados por estado.
-  SELECT ts.name AS ESTADO, COUNT(*) AS total FROM ticket t LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE t.ticket_state_id IN (12,13,18,21,22,25) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) GROUP BY 1 ORDER BY 2 DESC;
+```
+SELECT ts.name AS ESTADO, COUNT(*) AS total FROM ticket t LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE t.ticket_state_id IN (12,13,18,21,22,25) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) GROUP BY 1 ORDER BY 2 DESC;
+```
   
 - Tickets Fechados por Estado: Exibe a contagem de tickets fechados agrupados por estado.
-  SELECT ts.name AS ESTADO, COUNT(*) AS total FROM ticket t LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE t.ticket_state_id IN (11,17,19,20,23,24) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.create_time > NOW() - interval '21 hours' GROUP BY 1 ORDER BY 2 DESC;
+```
+SELECT ts.name AS ESTADO, COUNT(*) AS total FROM ticket t LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE t.ticket_state_id IN (11,17,19,20,23,24) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND t.create_time > NOW() - interval '21 hours' GROUP BY 1 ORDER BY 2 DESC;
+```
   
 - Tickets Sem Atendente: Exibe o número total de tickets abertos sem atendente nos últimos 21 horas.
-  SELECT COUNT(*) FROM ticket t WHERE user_id = 1 AND t.create_time > now() - interval '21 hours' AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56)
-  
+```
+SELECT COUNT(*) FROM ticket t WHERE user_id = 1 AND t.create_time > now() - interval '21 hours' AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56)
+```  
+
 - Tickets por Analista: Exibe a contagem de tickets abertos por analista.
-  SELECT Users.first_name AS Nome,Users.last_name AS Sobrenome, COUNT(ticket.user_id) AS Total FROM ticket INNER JOIN Users ON ticket.user_id = Users.id WHERE ticket.user_id In (119,159,249,270,279,283,285,291,295,297) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND ticket_state_id in (1,12,13,18,21,22,25) GROUP BY ticket.user_id, users.first_name, users.last_name ORDER BY users.first_name asc;
+```
+SELECT Users.first_name AS Nome,Users.last_name AS Sobrenome, COUNT(ticket.user_id) AS Total FROM ticket INNER JOIN Users ON ticket.user_id = Users.id WHERE ticket.user_id In (119,159,249,270,279,283,285,291,295,297) AND queue_id IN (12,14,15,16,17,18,19,44,45,55,56) AND ticket_state_id in (1,12,13,18,21,22,25) GROUP BY ticket.user_id, users.first_name, users.last_name ORDER BY users.first_name asc;
+```
   
 - Tickets Abertos por Período: Exibe a contagem de tickets abertos por dia.
-  SELECT DATE(ticket.create_time) AS "Date", COUNT(ticket.id) AS "# of tickets" FROM ticket INNER JOIN queue ON ticket.queue_id = queue.id WHERE ticket.queue_id IN (SELECT id FROM queue WHERE valid_id = 1 ORDER BY name) GROUP BY DATE(ticket.create_time);
+```
+SELECT DATE(ticket.create_time) AS "Date", COUNT(ticket.id) AS "# of tickets" FROM ticket INNER JOIN queue ON ticket.queue_id = queue.id WHERE ticket.queue_id IN (SELECT id FROM queue WHERE valid_id = 1 ORDER BY name) GROUP BY DATE(ticket.create_time);
+```
   
 - Tickets Abertos por Fila: Exibe a contagem de tickets abertos por fila.
-  SELECT NOW() AS Time, queue.name AS FILA, COUNT(*) AS " " FROM ticket INNER JOIN queue ON ticket.queue_id = queue.id WHERE queue_id IN (12,14,15,16,17,18,19,44,45,56) AND ticket_state_id IN (12,13,25,21,18,22) GROUP BY queue.name, 1 ORDER BY 3 DESC, 1;
+```
+SELECT NOW() AS Time, queue.name AS FILA, COUNT(*) AS " " FROM ticket INNER JOIN queue ON ticket.queue_id = queue.id WHERE queue_id IN (12,14,15,16,17,18,19,44,45,56) AND ticket_state_id IN (12,13,25,21,18,22) GROUP BY queue.name, 1 ORDER BY 3 DESC, 1;
+```
   
 - Tickets Recentes: Exibe uma lista de tickets abertos recentemente, incluindo detalhes como título, fila, analista responsável, status e e-mail do cliente.
-  SELECT t.tn AS Ticket, t.title AS Título, q.name AS Fila, u.login AS Analista, ts.name AS Status, t.customer_id AS Email FROM ticket t LEFT JOIN queue q ON t.queue_id=q.id LEFT JOIN users u ON t.user_id = u.id LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE queue_id in (12,14,15,16,17,18,19,44,45,50,55,56) and t.create_time > now() - interval '21 hours';
-
+```
+SELECT t.tn AS Ticket, t.title AS Título, q.name AS Fila, u.login AS Analista, ts.name AS Status, t.customer_id AS Email FROM ticket t LEFT JOIN queue q ON t.queue_id=q.id LEFT JOIN users u ON t.user_id = u.id LEFT JOIN ticket_state ts ON ts.id = t.ticket_state_id WHERE queue_id in (12,14,15,16,17,18,19,44,45,50,55,56) and t.create_time > now() - interval '21 hours';
+```
 ## Contribuição
 Este projeto está licenciado sob a MIT License, Se você deseja contribuir para este projeto, sinta-se à vontade para fazer um fork, implementar melhorias e enviar um pull request.
 Licença
