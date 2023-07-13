@@ -1,4 +1,4 @@
-# Dashboards Service Desk do Sistema OTRS no Grafana
+# Dashboards do Sistema OTRS no Grafana
 
 Este projeto consiste em uma coleção de dashboards no Grafana para monitorar e visualizar métricas relacionadas a um sistema de chamados do Service Desk, utilizando consultas no sistema OTRS no banco de dados PostgreSQL.
 
