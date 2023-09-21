@@ -3,8 +3,8 @@
 Este projeto consiste em uma coleção de dashboards no Grafana para monitorar e visualizar métricas relacionadas a um sistema de chamados do Service Desk, utilizando consultas no sistema OTRS no banco de dados PostgreSQL.
 
 ## Requisitos
-Grafana (versão X.X.X)
-Banco de dados PostgreSQL (versão X.X.X)
+Grafana (versão 9.1.5)
+Banco de dados PostgreSQL (versão 9.3)
 
 ![Dashboard Grafana](https://github.com/LeviLucena/Gestao-de-Tickets-Service-Desk/assets/34045910/25822040-f0d6-4f72-8f79-0cc5369b0f02)
 
